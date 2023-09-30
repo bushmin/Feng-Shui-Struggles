@@ -8,7 +8,7 @@ var holdPosition = Vector2.ZERO
 
 onready var MY_SIZE = $TextureRect.rect_size /  2
 
-const FORCE_PARAM = 1
+var CAMERA_POS = Vector2.ZERO
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,7 +16,7 @@ func _ready():
 	pass
 	
 func disable_click():
-	print('disabling_click')
+	#print('disabling_click')
 	holding = false
 	
 func move_mouse(event):
@@ -27,14 +27,20 @@ func move_mouse(event):
 	if not test_move(Transform2D(shape_owner_get_transform(0).rotated(deltaTransform.deltaAngle)), deltaTransform.deltaPos):
 		rotation += deltaTransform.deltaAngle *0.3
 	else:
-		print('test failed')
+		pass
+		#print('test failed')
+
+func new_camera_position(pos):
+	CAMERA_POS = pos
 
 func _on_input_event(viewport, event, shape_idx):
 	if event.is_action('press_mouse'):
 		if event.is_pressed():
 			#print('pressed', to_local(event.position))
 			holding = true
-			holdPosition = to_local(event.position)
+			holdPosition = to_local((CAMERA_POS+event.position))
+			#holdPosition = (event.position - get_global_transform_with_canvas().get_origin()).rotated(rotation)
+			#print(get_global_transform_with_canvas().get_origin(), ', ', event.position, ', ', holdPosition)
 		else:
 			print('not pressed')
 			holding = false

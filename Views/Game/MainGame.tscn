@@ -1,9 +1,28 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Views/Game/MainGame.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Furniture/Furniture.tscn" type="PackedScene" id=2]
 [ext_resource path="res://img/Wall.png" type="Texture" id=3]
 [ext_resource path="res://Views/Game/ROOM.gd" type="Script" id=4]
+[ext_resource path="res://img/Reset.png" type="Texture" id=5]
+[ext_resource path="res://fonts/Poppins-Medium.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Views/Game/Camera.gd" type="Script" id=7]
+[ext_resource path="res://Views/Game/SOLUTION.gd" type="Script" id=8]
+[ext_resource path="res://img/solution1.png" type="Texture" id=9]
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 0.227451, 0.686275, 0.913725, 1, 0.101961, 0.447059, 0.678431, 1 )
+
+[sub_resource type="GradientTexture2D" id=6]
+gradient = SubResource( 5 )
+width = 1280
+height = 720
+fill_from = Vector2( 0.300501, 0 )
+fill_to = Vector2( 0.711185, 0.981146 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 6 )
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 152, 152, 0, 152, 0, 0, 152, 0 )
@@ -34,20 +53,214 @@ points = PoolVector2Array( 152, 152, 0, 152, 0, 0, 152, 0 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 77.5, 44 )
 
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 94.0001, 128 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+smoothing_enabled = true
+script = ExtResource( 7 )
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="TextureRect" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 6 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Reset" type="TextureButton" parent="UI"]
+margin_left = 24.0
+margin_top = 17.0
+margin_right = 68.0
+margin_bottom = 61.0
+texture_normal = ExtResource( 5 )
+expand = true
+
+[node name="currentLevel" type="Label" parent="UI"]
+margin_left = 94.0
+margin_top = 14.0
+margin_right = 233.0
+margin_bottom = 60.0
+custom_colors/font_color = Color( 0.0705882, 0.141176, 0.180392, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "LEVEL 1/6"
+
+[node name="SOLUTION" type="Node2D" parent="UI"]
+script = ExtResource( 8 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/SOLUTION"]
+margin_left = 703.0
+margin_top = -1.0
+margin_right = 1283.0
+margin_bottom = 240.0
+color = Color( 0.882353, 0.866667, 0.831373, 1 )
+
+[node name="SolutionImg" type="TextureRect" parent="UI/SOLUTION"]
+margin_left = 861.0
+margin_top = 13.0
+margin_right = 1271.0
+margin_bottom = 223.0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="label" type="Label" parent="UI/SOLUTION"]
+margin_left = 716.0
+margin_top = 48.0
+margin_right = 855.0
+margin_bottom = 192.0
+custom_colors/font_color = Color( 0.0705882, 0.141176, 0.180392, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "FENG
+SHUI
+RESULT:"
+align = 2
 
 [node name="Walls" type="TileMap" parent="."]
 scale = Vector2( 0.3, 0.3 )
 tile_set = SubResource( 2 )
 cell_size = Vector2( 150, 150 )
 format = 1
-tile_data = PoolIntArray( 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 196630, 0, 0, 196631, 0, 0, 196632, 0, 0, 196633, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 196643, 0, 0, 196644, 0, 0, 262146, 0, 0, 262162, 0, 0, 262180, 0, 0, 327682, 0, 0, 327698, 0, 0, 327716, 0, 0, 393218, 0, 0, 393234, 0, 0, 393252, 0, 0, 458754, 0, 0, 458770, 0, 0, 458788, 0, 0, 524290, 0, 0, 524324, 0, 0, 589826, 0, 0, 589860, 0, 0, 655362, 0, 0, 655378, 0, 0, 655396, 0, 0, 720898, 0, 0, 720914, 0, 0, 720932, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786437, 0, 0, 786438, 0, 0, 786439, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 0, 0, 786449, 0, 0, 786450, 0, 0, 786451, 0, 0, 786452, 0, 0, 786453, 0, 0, 786454, 0, 0, 786455, 0, 0, 786456, 0, 0, 786457, 0, 0, 786458, 0, 0, 786459, 0, 0, 786460, 0, 0, 786461, 0, 0, 786462, 0, 0, 786463, 0, 0, 786464, 0, 0, 786465, 0, 0, 786466, 0, 0, 786467, 0, 0, 786468, 0, 0 )
+tile_data = PoolIntArray( 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 196643, 0, 0, 196644, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262180, 0, 0, 327684, 0, 0, 327694, 0, 0, 327716, 0, 0, 393220, 0, 0, 393230, 0, 0, 393252, 0, 0, 458756, 0, 0, 458766, 0, 0, 458788, 0, 0, 524292, 0, 0, 524302, 0, 0, 524324, 0, 0, 589828, 0, 0, 589838, 0, 0, 589860, 0, 0, 655364, 0, 0, 655396, 0, 0, 720900, 0, 0, 720932, 0, 0, 786436, 0, 0, 786446, 0, 0, 786461, 0, 0, 786462, 0, 0, 786463, 0, 0, 786464, 0, 0, 786465, 0, 0, 786466, 0, 0, 786467, 0, 0, 786468, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0 )
 
-[node name="ROOM_1" type="Node2D" parent="."]
+[node name="ROOMS" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
+[node name="ROOM_1" type="Node2D" parent="ROOMS"]
 script = ExtResource( 4 )
 
-[node name="RealRoom" type="ColorRect" parent="ROOM_1"]
+[node name="RealRoom" type="ColorRect" parent="ROOMS/ROOM_1"]
+margin_left = 226.0
+margin_top = 221.0
+margin_right = 631.0
+margin_bottom = 586.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.32549 )
+
+[node name="Furniture" type="Node2D" parent="ROOMS/ROOM_1/RealRoom"]
+
+[node name="Table" parent="ROOMS/ROOM_1/RealRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 49, 282 )
+rotation = -1.5708
+__meta__ = {
+"_edit_group_": true
+}
+IdealObject = NodePath("../../../FinalRoom/Furniture/Table2")
+
+[node name="TextureRect" parent="ROOMS/ROOM_1/RealRoom/Furniture/Table" index="0"]
+margin_left = -79.0
+margin_right = 80.0
+
+[node name="CollisionShape2D" parent="ROOMS/ROOM_1/RealRoom/Furniture/Table" index="1"]
+position = Vector2( 0.5, 0 )
+shape = SubResource( 3 )
+
+[node name="Bed" parent="ROOMS/ROOM_1/RealRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 130, 102 )
+rotation = -1.5708
+__meta__ = {
+"_edit_group_": true
+}
+IdealObject = NodePath("../../../FinalRoom/Furniture/Bed2")
+
+[node name="TextureRect" parent="ROOMS/ROOM_1/RealRoom/Furniture/Bed" index="0"]
+margin_left = -97.0
+margin_top = -130.0
+margin_right = 95.0
+margin_bottom = 129.0
+
+[node name="CollisionShape2D" parent="ROOMS/ROOM_1/RealRoom/Furniture/Bed" index="1"]
+position = Vector2( -0.000106812, 1.52588e-05 )
+shape = SubResource( 7 )
+
+[node name="Chair" parent="ROOMS/ROOM_1/RealRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 173, 280 )
+rotation = 1.5708
+__meta__ = {
+"_edit_group_": true
+}
+IdealObject = NodePath("../../../FinalRoom/Furniture/Chair2")
+
+[node name="Nightstand" parent="ROOMS/ROOM_1/RealRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 320, 53 )
+rotation = 1.5708
+__meta__ = {
+"_edit_group_": true
+}
+IdealObject = NodePath("../../../FinalRoom/Furniture/Nightstand2")
+
+[node name="Decoration" type="Node2D" parent="ROOMS/ROOM_1/RealRoom"]
+
+[node name="FinalRoom" type="ColorRect" parent="ROOMS/ROOM_1"]
+margin_left = 195.0
+margin_top = -450.0
+margin_right = 600.0
+margin_bottom = -81.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.32549 )
+
+[node name="Furniture" type="Node2D" parent="ROOMS/ROOM_1/FinalRoom"]
+
+[node name="Bed2" parent="ROOMS/ROOM_1/FinalRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 95, 240 )
+rotation = 3.14159
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TextureRect" parent="ROOMS/ROOM_1/FinalRoom/Furniture/Bed2" index="0"]
+margin_left = -97.0
+margin_top = -130.0
+margin_right = 95.0
+margin_bottom = 129.0
+
+[node name="CollisionShape2D" parent="ROOMS/ROOM_1/FinalRoom/Furniture/Bed2" index="1"]
+position = Vector2( -0.000106812, 1.52588e-05 )
+shape = SubResource( 7 )
+
+[node name="Table2" parent="ROOMS/ROOM_1/FinalRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 339, 80 )
+rotation = 1.5708
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TextureRect" parent="ROOMS/ROOM_1/FinalRoom/Furniture/Table2" index="0"]
+margin_left = -79.0
+margin_right = 80.0
+
+[node name="CollisionShape2D" parent="ROOMS/ROOM_1/FinalRoom/Furniture/Table2" index="1"]
+position = Vector2( 0.5, 0 )
+shape = SubResource( 3 )
+
+[node name="Chair2" parent="ROOMS/ROOM_1/FinalRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 244, 53 )
+rotation = -1.5708
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Nightstand2" parent="ROOMS/ROOM_1/FinalRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 241, 322 )
+rotation = 3.14159
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ROOM_2" type="Node2D" parent="ROOMS"]
+position = Vector2( 720, -1 )
+script = ExtResource( 4 )
+
+[node name="RealRoom" type="ColorRect" parent="ROOMS/ROOM_2"]
 margin_left = 136.0
 margin_top = 181.0
 margin_right = 810.0
@@ -55,33 +268,33 @@ margin_bottom = 538.0
 mouse_filter = 2
 color = Color( 1, 1, 1, 0.32549 )
 
-[node name="Furniture" type="Node2D" parent="ROOM_1/RealRoom"]
+[node name="Furniture" type="Node2D" parent="ROOMS/ROOM_2/RealRoom"]
 
-[node name="Table" parent="ROOM_1/RealRoom/Furniture" instance=ExtResource( 2 )]
+[node name="Table" parent="ROOMS/ROOM_2/RealRoom/Furniture" instance=ExtResource( 2 )]
 position = Vector2( 122, 107 )
 __meta__ = {
 "_edit_group_": true
 }
 IdealObject = NodePath("../../../FinalRoom/Furniture/Table")
 
-[node name="TextureRect" parent="ROOM_1/RealRoom/Furniture/Table" index="0"]
+[node name="TextureRect" parent="ROOMS/ROOM_2/RealRoom/Furniture/Table" index="0"]
 margin_left = -79.0
 margin_right = 80.0
 
-[node name="CollisionShape2D" parent="ROOM_1/RealRoom/Furniture/Table" index="1"]
+[node name="CollisionShape2D" parent="ROOMS/ROOM_2/RealRoom/Furniture/Table" index="1"]
 position = Vector2( 0.5, 0 )
 shape = SubResource( 3 )
 
-[node name="Chair" parent="ROOM_1/RealRoom/Furniture" instance=ExtResource( 2 )]
+[node name="Chair" parent="ROOMS/ROOM_2/RealRoom/Furniture" instance=ExtResource( 2 )]
 position = Vector2( 383, 106 )
 __meta__ = {
 "_edit_group_": true
 }
 IdealObject = NodePath("../../../FinalRoom/Furniture/Chair")
 
-[node name="Decoration" type="Node2D" parent="ROOM_1/RealRoom"]
+[node name="Decoration" type="Node2D" parent="ROOMS/ROOM_2/RealRoom"]
 
-[node name="FinalRoom" type="ColorRect" parent="ROOM_1"]
+[node name="FinalRoom" type="ColorRect" parent="ROOMS/ROOM_2"]
 margin_left = 137.0
 margin_top = -438.0
 margin_right = 811.0
@@ -89,30 +302,41 @@ margin_bottom = -81.0
 mouse_filter = 2
 color = Color( 1, 1, 1, 0.32549 )
 
-[node name="Furniture" type="Node2D" parent="ROOM_1/FinalRoom"]
+[node name="Furniture" type="Node2D" parent="ROOMS/ROOM_2/FinalRoom"]
 
-[node name="Table" parent="ROOM_1/FinalRoom/Furniture" instance=ExtResource( 2 )]
-position = Vector2( 628, 79 )
-rotation = 1.5708
+[node name="Table" parent="ROOMS/ROOM_2/FinalRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 78, 312 )
+rotation = 3.14159
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="TextureRect" parent="ROOM_1/FinalRoom/Furniture/Table" index="0"]
+[node name="TextureRect" parent="ROOMS/ROOM_2/FinalRoom/Furniture/Table" index="0"]
 margin_left = -79.0
 margin_right = 80.0
 
-[node name="CollisionShape2D" parent="ROOM_1/FinalRoom/Furniture/Table" index="1"]
+[node name="CollisionShape2D" parent="ROOMS/ROOM_2/FinalRoom/Furniture/Table" index="1"]
 position = Vector2( 0.5, 0 )
 shape = SubResource( 3 )
 
-[node name="Chair" parent="ROOM_1/FinalRoom/Furniture" instance=ExtResource( 2 )]
-position = Vector2( 509, 78 )
+[node name="Chair" parent="ROOMS/ROOM_2/FinalRoom/Furniture" instance=ExtResource( 2 )]
+position = Vector2( 49, 49 )
 rotation = -1.5708
 __meta__ = {
 "_edit_group_": true
 }
 
-[editable path="ROOM_1/RealRoom/Furniture/Table"]
-[editable path="ROOM_1/RealRoom/Furniture/Chair"]
-[editable path="ROOM_1/FinalRoom/Furniture/Table"]
+[connection signal="button_down" from="UI/Reset" to="." method="_on_Reset_button_down"]
+[connection signal="win_room" from="ROOMS/ROOM_1" to="." method="_on_win_room"]
+
+[editable path="ROOMS/ROOM_1/RealRoom/Furniture/Table"]
+[editable path="ROOMS/ROOM_1/RealRoom/Furniture/Bed"]
+[editable path="ROOMS/ROOM_1/RealRoom/Furniture/Chair"]
+[editable path="ROOMS/ROOM_1/RealRoom/Furniture/Nightstand"]
+[editable path="ROOMS/ROOM_1/FinalRoom/Furniture/Bed2"]
+[editable path="ROOMS/ROOM_1/FinalRoom/Furniture/Table2"]
+[editable path="ROOMS/ROOM_1/FinalRoom/Furniture/Chair2"]
+[editable path="ROOMS/ROOM_1/FinalRoom/Furniture/Nightstand2"]
+[editable path="ROOMS/ROOM_2/RealRoom/Furniture/Table"]
+[editable path="ROOMS/ROOM_2/RealRoom/Furniture/Chair"]
+[editable path="ROOMS/ROOM_2/FinalRoom/Furniture/Table"]
