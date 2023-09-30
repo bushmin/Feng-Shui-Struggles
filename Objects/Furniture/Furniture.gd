@@ -1,4 +1,7 @@
+tool
 extends KinematicBody2D
+
+export var IdealObject: NodePath
 
 var holding = false
 var holdPosition = Vector2.ZERO
@@ -6,6 +9,7 @@ var holdPosition = Vector2.ZERO
 onready var MY_SIZE = $TextureRect.rect_size /  2
 
 const FORCE_PARAM = 1
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,9 +23,11 @@ func move_mouse(event):
 	if not holding: return
 	var deltaTransform = get_block_transform(holdPosition, event.speed)
 	move_and_slide(deltaTransform.deltaPos)
-	print(deltaTransform)
-	if not test_move(Transform2D(rotation + deltaTransform.deltaAngle, position), deltaTransform.deltaPos):
-		rotation += deltaTransform.deltaAngle
+	#print(deltaTransform)
+	if not test_move(Transform2D(shape_owner_get_transform(0).rotated(deltaTransform.deltaAngle)), deltaTransform.deltaPos):
+		rotation += deltaTransform.deltaAngle *0.3
+	else:
+		print('test failed')
 
 func _on_input_event(viewport, event, shape_idx):
 	if event.is_action('press_mouse'):
@@ -38,5 +44,6 @@ func get_block_transform(holdPos: Vector2, deltaMouse: Vector2):
 	#print(holdPos, rotatedHoldPos)
 	var deltaCenterPos = rotatedHoldPos + deltaMouse - holdPos.length()*(rotatedHoldPos + deltaMouse).normalized()
 	var deltaAngle = rotatedHoldPos.angle_to(rotatedHoldPos + deltaMouse) * 0.1
-	if holdPos.length() < 0.5*MY_SIZE.length(): deltaAngle = 0
+	if holdPos.length() < 0.5*MY_SIZE.length():
+		deltaAngle = 0
 	return {"deltaPos":deltaCenterPos, "deltaAngle":deltaAngle}

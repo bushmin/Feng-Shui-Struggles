@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/Furniture/Furniture.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 46, 46 )
+extents = Vector2( 44, 44 )
 
 [node name="Furniture" type="KinematicBody2D" groups=["FURNITURE"]]
 input_pickable = true
