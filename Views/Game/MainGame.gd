@@ -10,13 +10,15 @@ var currentLevel = 0
 
 func _ready():
 	Levels[currentLevel].activate()
+	$Camera2D.move_to(Levels[currentLevel])
 	#_on_win_room()
 
-func _input(event):
+func _input(event: InputEvent):
 	if event.is_action('press_mouse') and not event.is_pressed():
 		get_tree().call_group("FURNITURE", "disable_click")
 	elif event is InputEventMouseMotion:
-		get_tree().call_group("FURNITURE", "move_mouse", event)
+		pass
+		#get_tree().call_group("FURNITURE", "move_mouse", Input.get_last_mouse_speed())
 
 
 
@@ -26,6 +28,7 @@ func _on_win_room():
 		return
 		
 	currentLevel += 1;
+	$UI/currentLevel.text = "LEVEL " + str(currentLevel+1) + "/" + str(Levels.size())
 	Levels[currentLevel].activate()
 	$Camera2D.move_to(Levels[currentLevel])
 	$UI/SOLUTION.show_image(currentLevel)

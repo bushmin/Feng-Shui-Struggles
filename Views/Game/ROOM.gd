@@ -13,7 +13,7 @@ var endPositions = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#print($RealRoom.rect_position)
+	$RealRoom.color = Color(0,0,0,0)
 	for thing in $RealRoom/Furniture.get_children():
 		startPositions[thing] = {
 			"position": thing.global_position - $RealRoom.rect_global_position,
@@ -41,9 +41,11 @@ func _process(delta):
 	
 	for furniture in $RealRoom/Furniture.get_children():
 		if (furniture.position - furniture.get_node(furniture.IdealObject).position).length() > ALLOWED_OFFSET \
-		or abs(furniture.rotation - furniture.get_node(furniture.IdealObject).rotation) > ALLOWED_ROTATION:
+		or abs(Vector2.RIGHT.rotated(furniture.rotation).angle_to(Vector2.RIGHT.rotated(furniture.get_node(furniture.IdealObject).rotation))) > ALLOWED_ROTATION:
 			correct = false
-			break
+			furniture.set_correct(false)
+		else:
+			furniture.set_correct(true)
 	
 	if correct == true:
 		print('WIN', self)
