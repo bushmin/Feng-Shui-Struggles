@@ -9,9 +9,9 @@ var currentLevel = 0
 
 
 func _ready():
-	#Levels[currentLevel].activate()
-	#$Camera2D.move_to(Levels[currentLevel])
-	_on_win_room()
+	Levels[currentLevel].activate()
+	$Camera2D.move_to(Levels[currentLevel])
+	#_on_win_room()
 
 func _input(event: InputEvent):
 	if event.is_action('press_mouse') and not event.is_pressed():

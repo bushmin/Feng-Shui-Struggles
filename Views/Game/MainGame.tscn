@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Views/Game/MainGame.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Furniture/Furniture.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://img/solution1.png" type="Texture" id=9]
 [ext_resource path="res://img/Wall_tilemap.png" type="Texture" id=10]
 [ext_resource path="res://Objects/Door/Door.tscn" type="PackedScene" id=11]
+[ext_resource path="res://img/table1.png" type="Texture" id=12]
+[ext_resource path="res://img/bed1.png" type="Texture" id=13]
 
 [sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 0.227451, 0.686275, 0.913725, 1, 0.101961, 0.447059, 0.678431, 1 )
@@ -626,6 +628,7 @@ IdealObject = NodePath("../../../FinalRoom/Furniture/Table2")
 [node name="TextureRect" parent="ROOMS/ROOM_1/RealRoom/Furniture/Table" index="0"]
 margin_left = -79.0
 margin_right = 80.0
+texture = ExtResource( 12 )
 
 [node name="CollisionShape2D" parent="ROOMS/ROOM_1/RealRoom/Furniture/Table" index="1"]
 position = Vector2( 0.5, 0 )
@@ -644,6 +647,7 @@ margin_left = -97.0
 margin_top = -130.0
 margin_right = 95.0
 margin_bottom = 129.0
+texture = ExtResource( 13 )
 
 [node name="CollisionShape2D" parent="ROOMS/ROOM_1/RealRoom/Furniture/Bed" index="1"]
 position = Vector2( -0.000106812, 1.52588e-05 )
