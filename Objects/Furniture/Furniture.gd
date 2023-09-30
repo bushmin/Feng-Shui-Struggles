@@ -4,6 +4,7 @@ extends KinematicBody2D
 export var IdealObject: NodePath
 
 var holding = false
+var inside = false
 var holdPosition = Vector2.ZERO
 
 onready var MY_SIZE = $TextureRect.rect_size /  2
@@ -14,15 +15,8 @@ var mouseDelta = Vector2.ZERO
 
 var prevMousePos = Vector2.ZERO
 
-const SMALL_ROTATION = 0.1
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-	
 func disable_click():
-	#print('disabling_click')
 	holding = false
 	
 func _physics_process(delta):
@@ -30,18 +24,17 @@ func _physics_process(delta):
 	mouseDelta = newPos - prevMousePos
 	prevMousePos = newPos
 	
-	if not holding or mouseDelta == Vector2.ZERO: return
+	if (global_position-newPos-CAMERA_POS).length()>MY_SIZE.length()*2:
+		inside = false
+	
+	if not holding or not inside or mouseDelta == Vector2.ZERO: return
 	
 	move_by(mouseDelta, delta)
-	#if not test_move(Transform2D(global_rotation +deltaTransform.deltaAngle, global_position), deltaTransform.deltaPos):
-	#	rotation += deltaTransform.deltaAngle
-	#elif not test_move(Transform2D(global_rotation +deltaTransform.deltaAngle*SMALL_ROTATION, global_position), deltaTransform.deltaPos):
-	#	rotation += deltaTransform.deltaAngle*SMALL_ROTATION
-		
+
 	
 
-func move_by(mouseDelta, timeDelta):
-	if is_zero_approx(mouseDelta.length()): return
+func move_by(mouseDelta, timeDelta, cycle = 0):
+	if cycle > 5 or is_zero_approx(mouseDelta.length()): return
 	var deltaTransform = get_block_transform(holdPosition, mouseDelta)
 	if not test_move(Transform2D(global_rotation +deltaTransform.deltaAngle, global_position), deltaTransform.deltaPos):
 		rotation += deltaTransform.deltaAngle
@@ -49,7 +42,7 @@ func move_by(mouseDelta, timeDelta):
 	else:
 		#holdPosition += deltaTransform.deltaPos/2
 		holdPosition = to_local((CAMERA_POS+prevMousePos))
-		move_by(mouseDelta/2, timeDelta)
+		move_by(mouseDelta/2, timeDelta, cycle+1)
 
 func new_camera_position(pos):
 	CAMERA_POS = pos
@@ -77,3 +70,10 @@ func get_block_transform(holdPos: Vector2, deltaMouse: Vector2):
 
 	
 	return {"deltaPos":deltaCenterPos, "deltaAngle":deltaAngle}
+
+
+
+func _on_mouse_entered():
+	print('INS')
+	inside = true
+	holdPosition = to_local((CAMERA_POS+prevMousePos))
