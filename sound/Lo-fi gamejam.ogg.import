@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Lo-fi gamejam.ogg-17eabc9e36404f9483590f67e96d2cef.oggstr"
+
+[deps]
+
+source_file="res://sound/Lo-fi gamejam.ogg"
+dest_files=[ "res://.import/Lo-fi gamejam.ogg-17eabc9e36404f9483590f67e96d2cef.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

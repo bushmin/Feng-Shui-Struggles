@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var IdealObject: NodePath
+export var RotationNeeded: bool = true
 
 var holding = false
 var inside = false

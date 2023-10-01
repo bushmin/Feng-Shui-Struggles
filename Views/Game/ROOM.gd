@@ -22,7 +22,8 @@ func _ready():
 	for thing in $FinalRoom/Furniture.get_children():
 		endPositions[thing] = {
 			"position": thing.global_position - $FinalRoom.rect_global_position,
-			"rotation": thing.rotation
+			"rotation": thing.rotation,
+			"rotationNeeded": thing.RotationNeeded
 			}
 			
 	#print(startPositions)
@@ -38,7 +39,8 @@ func _process(delta):
 	
 	for furniture in $RealRoom/Furniture.get_children():
 		if (furniture.position - furniture.get_node(furniture.IdealObject).position).length() > ALLOWED_OFFSET \
-		or abs(Vector2.RIGHT.rotated(furniture.rotation).angle_to(Vector2.RIGHT.rotated(furniture.get_node(furniture.IdealObject).rotation))) > ALLOWED_ROTATION:
+		or (abs(Vector2.RIGHT.rotated(furniture.rotation).angle_to(Vector2.RIGHT.rotated(furniture.get_node(furniture.IdealObject).rotation))) > ALLOWED_ROTATION\
+		and furniture.get_node(furniture.IdealObject).RotationNeeded == true):
 			correct = false
 			furniture.set_correct(false)
 		else:
