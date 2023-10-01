@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://fonts/Eczar-ExtraBold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://img/piano.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.997904 )
+colors = PoolColorArray( 0.568627, 0.835294, 0.960784, 1, 0.101961, 0.447059, 0.678431, 1 )
+
+[sub_resource type="GradientTexture2D" id=62]
+gradient = SubResource( 5 )
+width = 1280
+height = 720
+fill_from = Vector2( 0.300501, 0 )
+fill_to = Vector2( 0.706177, 0.978099 )
+
+[sub_resource type="DynamicFont" id=64]
+size = 70
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Shader" id=61]
+code = "shader_type canvas_item;
+
+uniform float brightness: hint_range(0, 2) = 1.0;
+uniform float contrast: hint_range(0, 2) = 1.0;
+uniform float saturation: hint_range(0, 2) = 1.0;
+
+void fragment() {
+    vec3 c = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+
+    c.rgb = mix(vec3(0.0), c.rgb, brightness);
+    c.rgb = mix(vec3(0.5), c.rgb, contrast);
+    c.rgb = mix(vec3(dot(vec3(1.0), c.rgb) * 0.33333), c.rgb, saturation);
+
+    COLOR.rgb = c;
+}"
+
+[sub_resource type="ShaderMaterial" id=63]
+shader = SubResource( 61 )
+shader_param/brightness = 1.345
+shader_param/contrast = 0.54
+shader_param/saturation = 1.115
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1280.0
+margin_bottom = 720.0
+mouse_filter = 2
+texture = SubResource( 62 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 481.0
+margin_top = 431.0
+margin_right = 832.0
+margin_bottom = 640.0
+custom_constants/line_spacing = -43
+custom_fonts/font = SubResource( 64 )
+text = "Feng Shui
+Struggles"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 471.0
+margin_top = 81.0
+margin_right = 834.0
+margin_bottom = 444.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="ShaderLayer" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ShaderLayer"]
+material = SubResource( 63 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2

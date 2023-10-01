@@ -20,6 +20,9 @@ func disable_click():
 	holding = false
 	
 func _physics_process(delta):
+	$Correct.set_rotation(-rotation)
+	$Correct.rect_position = $TextureRect.rect_position
+	
 	var newPos = get_viewport().get_mouse_position()
 	mouseDelta = newPos - prevMousePos
 	prevMousePos = newPos
@@ -49,8 +52,12 @@ func new_camera_position(pos):
 	CAMERA_POS = pos
 
 func set_correct(isCorrect):
-	if isCorrect: modulate = Color("ffffff") #a3a3a3
-	else: modulate = Color("ffffff")
+	if isCorrect:
+		$TextureRect.modulate = Color("5c5c5c") #a3a3a3
+		$Correct.show()
+	else:
+		$TextureRect.modulate = Color("ffffff")
+		$Correct.hide()
 
 func _on_input_event(viewport, event, shape_idx):
 	if event.is_action('press_mouse'):

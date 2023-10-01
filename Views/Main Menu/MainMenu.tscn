@@ -1,10 +1,10 @@
 [gd_scene load_steps=68 format=2]
 
-[ext_resource path="res://img/chair2.png" type="Texture" id=1]
+[ext_resource path="res://img/tableMenu.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Window/Window.tscn" type="PackedScene" id=2]
 [ext_resource path="res://img/piano.png" type="Texture" id=3]
 [ext_resource path="res://img/Wall_tilemap.png" type="Texture" id=4]
-[ext_resource path="res://img/table1.png" type="Texture" id=5]
+[ext_resource path="res://img/chairMenu.png" type="Texture" id=5]
 [ext_resource path="res://img/pianoChair.png" type="Texture" id=6]
 [ext_resource path="res://img/roundTable2.png" type="Texture" id=7]
 [ext_resource path="res://fonts/Poppins-Light.ttf" type="DynamicFontData" id=8]
@@ -471,18 +471,18 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 1/z_index = 0
 
-[sub_resource type="DynamicFontData" id=65]
-font_path = "res://fonts/Eczar-ExtraBold.ttf"
-
-[sub_resource type="DynamicFont" id=58]
-size = 96
-use_filter = true
-font_data = SubResource( 65 )
-
 [sub_resource type="DynamicFont" id=66]
 size = 32
 use_filter = true
 font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFontData" id=65]
+font_path = "res://fonts/Eczar-ExtraBold.ttf"
+
+[sub_resource type="DynamicFont" id=58]
+size = 80
+use_filter = true
+font_data = SubResource( 65 )
 
 [sub_resource type="DynamicFont" id=59]
 size = 48
@@ -545,26 +545,26 @@ tile_data = PoolIntArray( 262147, 1, 0, 262148, 1, 5, 262154, 1, 65542, 262155, 
 position = Vector2( 962.858, 540 )
 scale = Vector2( 4.42, 4 )
 
+[node name="Label2" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0.670588 )
+margin_left = 13.0
+margin_top = 665.0
+margin_right = 372.0
+margin_bottom = 711.0
+custom_constants/line_spacing = -34
+custom_fonts/font = SubResource( 66 )
+text = "A game by: Nozomu57"
+
 [node name="Label" type="Label" parent="."]
-margin_left = 622.0
-margin_top = 77.0
-margin_right = 1218.0
-margin_bottom = 422.0
+margin_left = 608.0
+margin_top = 67.0
+margin_right = 1204.0
+margin_bottom = 412.0
 custom_constants/line_spacing = -34
 custom_fonts/font = SubResource( 58 )
 text = "FENG SHUI
 STRUGGLES"
-align = 1
-
-[node name="Label" type="Label" parent="Label"]
-modulate = Color( 1, 1, 1, 0.670588 )
-margin_left = -609.0
-margin_top = 588.0
-margin_right = -266.0
-margin_bottom = 634.0
-custom_constants/line_spacing = -34
-custom_fonts/font = SubResource( 66 )
-text = "A game by: Nozomu57"
+align = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_left = 170.0
@@ -582,7 +582,7 @@ margin_top = 512.0
 margin_right = 362.0
 margin_bottom = 615.0
 rect_rotation = -90.0
-texture = ExtResource( 5 )
+texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
@@ -593,7 +593,7 @@ margin_top = 382.0
 margin_right = 508.0
 margin_bottom = 458.0
 rect_rotation = 90.0
-texture = ExtResource( 1 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 
@@ -618,10 +618,10 @@ expand = true
 stretch_mode = 6
 
 [node name="Button" type="Button" parent="."]
-margin_left = 771.0
-margin_top = 565.0
-margin_right = 1161.0
-margin_bottom = 657.0
+margin_left = 798.0
+margin_top = 476.0
+margin_right = 1188.0
+margin_bottom = 568.0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 59 )
 custom_styles/normal = SubResource( 60 )
@@ -632,6 +632,7 @@ flat = true
 layer = 100
 
 [node name="ColorRect" type="ColorRect" parent="ShaderLayer"]
+visible = false
 material = SubResource( 64 )
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -24,15 +24,23 @@ func _input(event: InputEvent):
 	if event.is_action('press_mouse') and not event.is_pressed():
 		get_tree().call_group("FURNITURE", "disable_click")
 	elif event.is_action_pressed('ui_accept'):
-		_on_win_room(true)
+		pass
+		#_on_win_room()
 
 
 
-func _on_win_room(force = false):
+func _on_win_room():
 	MusicManager.SFX.play_win()
-	
-	if not force: return
-	
+	$UI/WinConfetti.restart()
+	$UI/WinConfetti2.restart()
+	$"Win timer".start()
+
+
+func _on_Reset_button_down():
+	Levels[currentLevel].reset()
+
+
+func _on_Win_timer_timeout():
 	if currentLevel == Levels.size()-1:
 		TransitionManager.change_scene("res://Views/End/EndView.tscn")
 		return
@@ -42,7 +50,3 @@ func _on_win_room(force = false):
 	Levels[currentLevel].activate()
 	$Camera2D.move_to(Levels[currentLevel])
 	$UI/SOLUTION.show_image(currentLevel)
-
-
-func _on_Reset_button_down():
-	Levels[currentLevel].reset()

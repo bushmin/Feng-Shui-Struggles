@@ -4,7 +4,7 @@ var scratchingTimer = 0
 const MAX_SCRATCH_TIMER = 20
 
 var Win = preload("res://sound/win_bell.ogg")
-var Glass = preload("res://sound/glass_long.ogg")
+var Glass = preload("res://sound/glass.ogg")
 var Scratch = preload("res://sound/scratch.ogg")
 
 func _ready():
@@ -20,13 +20,13 @@ func play_win():
 	self.set_stream(Win)
 	self.set_pitch_scale(1)
 	self.play()
+	self.seek(0.1)
 
 
 func play_glass():
 	self.set_stream(Glass)
-	self.set_pitch_scale(4)
+	self.set_pitch_scale(0.8)
 	self.play()
-	self.seek(0.6)
 
 func start_scratch():
 	if scratchingTimer >0: return
