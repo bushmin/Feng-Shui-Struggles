@@ -5,7 +5,7 @@ signal win_room
 export var roomNumber = 1
 
 const ALLOWED_OFFSET = 20
-const ALLOWED_ROTATION = 0.2
+const ALLOWED_ROTATION = 0.15
 
 var isActive = false
 var startPositions = {}
@@ -25,11 +25,8 @@ func _ready():
 			"rotation": thing.rotation
 			}
 			
-	print(startPositions)
-	print(endPositions)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	#print(startPositions)
+	#print(endPositions)
 
 func activate():
 	isActive = true
@@ -48,7 +45,6 @@ func _process(delta):
 			furniture.set_correct(true)
 	
 	if correct == true:
-		print('WIN', self)
 		isActive = false
 		emit_signal("win_room")
 

@@ -2,13 +2,19 @@ extends Node2D
 
 onready var Levels = [
 	$ROOMS/ROOM_1,
-	$ROOMS/ROOM_2
+	$ROOMS/ROOM_2,
+	$ROOMS/ROOM_3,
+	$ROOMS/ROOM_4,
+	$ROOMS/ROOM_5
 ]
 
 var currentLevel = 0
 
 
 func _ready():
+	$EffectsLayer.show()
+	$ShaderLayer.show()
+	
 	Levels[currentLevel].activate()
 	$Camera2D.move_to(Levels[currentLevel])
 	#_on_win_room()
@@ -16,14 +22,13 @@ func _ready():
 func _input(event: InputEvent):
 	if event.is_action('press_mouse') and not event.is_pressed():
 		get_tree().call_group("FURNITURE", "disable_click")
-	elif event is InputEventMouseMotion:
-		pass
-		#get_tree().call_group("FURNITURE", "move_mouse", Input.get_last_mouse_speed())
+	elif event.is_action_pressed('ui_accept'):
+		_on_win_room()
 
 
 
 func _on_win_room():
-	if currentLevel == Levels.size():
+	if currentLevel == Levels.size()-1:
 		print('FINAL WIN')
 		return
 		

@@ -1,4 +1,3 @@
-tool
 extends KinematicBody2D
 
 export var IdealObject: NodePath
@@ -48,7 +47,7 @@ func new_camera_position(pos):
 	CAMERA_POS = pos
 
 func set_correct(isCorrect):
-	if isCorrect: modulate = Color("86ffb0")
+	if isCorrect: modulate = Color("a3a3a3")
 	else: modulate = Color("ffffff")
 
 func _on_input_event(viewport, event, shape_idx):
@@ -74,6 +73,5 @@ func get_block_transform(holdPos: Vector2, deltaMouse: Vector2):
 
 
 func _on_mouse_entered():
-	print('INS')
 	inside = true
 	holdPosition = to_local((CAMERA_POS+prevMousePos))
