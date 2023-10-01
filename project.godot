@@ -10,8 +10,9 @@ config_version=4
 
 [application]
 
-config/name="Ludum Dare 54"
+config/name="Feng Shui Struggles"
 run/main_scene="res://Views/Game/MainGame.tscn"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]

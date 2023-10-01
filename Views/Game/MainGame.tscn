@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://Views/Game/MainGame.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Furniture/Furniture.tscn" type="PackedScene" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://fonts/Poppins-Medium.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Views/Game/Camera.gd" type="Script" id=7]
 [ext_resource path="res://Views/Game/SOLUTION.gd" type="Script" id=8]
-[ext_resource path="res://img/solution1.png" type="Texture" id=9]
+[ext_resource path="res://img/solutions/level4.png" type="Texture" id=9]
 [ext_resource path="res://img/Wall_tilemap.png" type="Texture" id=10]
 [ext_resource path="res://Objects/Door/Door.tscn" type="PackedScene" id=11]
 [ext_resource path="res://img/table1.png" type="Texture" id=12]
@@ -27,24 +27,32 @@
 [ext_resource path="res://img/tv.png" type="Texture" id=25]
 [ext_resource path="res://img/wadrobe2.png" type="Texture" id=26]
 [ext_resource path="res://img/roundTable2.png" type="Texture" id=27]
+[ext_resource path="res://fonts/Eczar-ExtraBold.ttf" type="DynamicFontData" id=28]
 
 [sub_resource type="Gradient" id=5]
-colors = PoolColorArray( 0.227451, 0.686275, 0.913725, 1, 0.101961, 0.447059, 0.678431, 1 )
+offsets = PoolRealArray( 0, 0.997904 )
+colors = PoolColorArray( 0.568627, 0.835294, 0.960784, 1, 0.101961, 0.447059, 0.678431, 1 )
 
-[sub_resource type="GradientTexture2D" id=6]
+[sub_resource type="GradientTexture2D" id=62]
 gradient = SubResource( 5 )
 width = 1280
 height = 720
 fill_from = Vector2( 0.300501, 0 )
-fill_to = Vector2( 0.711185, 0.981146 )
+fill_to = Vector2( 0.706177, 0.978099 )
 
 [sub_resource type="DynamicFont" id=56]
 size = 24
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 32
-font_data = ExtResource( 6 )
+size = 48
+use_filter = true
+font_data = ExtResource( 28 )
+
+[sub_resource type="DynamicFont" id=75]
+size = 24
+use_filter = true
+font_data = ExtResource( 28 )
 
 [sub_resource type="RectangleShape2D" id=60]
 extents = Vector2( 86, 44 )
@@ -62,9 +70,9 @@ extents = Vector2( 92.5, 44 )
 extents = Vector2( 118.5, 25.5 )
 
 [sub_resource type="RectangleShape2D" id=61]
-extents = Vector2( 151.5, 60 )
+extents = Vector2( 151.5, 58 )
 
-[sub_resource type="CircleShape2D" id=62]
+[sub_resource type="CircleShape2D" id=74]
 radius = 41.0
 
 [sub_resource type="RectangleShape2D" id=64]
@@ -540,7 +548,7 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 1/z_index = 0
 
-[sub_resource type="Shader" id=57]
+[sub_resource type="Shader" id=73]
 code = "shader_type canvas_item;
 
 uniform float brightness: hint_range(0, 2) = 1.0;
@@ -558,7 +566,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=58]
-shader = SubResource( 57 )
+shader = SubResource( 73 )
 shader_param/brightness = 1.345
 shader_param/contrast = 0.54
 shader_param/saturation = 1.115
@@ -583,10 +591,10 @@ layer = -10
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = SubResource( 6 )
+texture = SubResource( 62 )
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 10
+layer = 9
 
 [node name="SOLUTION" type="Node2D" parent="UI"]
 script = ExtResource( 8 )
@@ -595,22 +603,30 @@ script = ExtResource( 8 )
 margin_top = -1.0
 margin_right = 1283.0
 margin_bottom = 168.0
-color = Color( 0.882353, 0.866667, 0.831373, 0.686275 )
+color = Color( 0.984314, 0.976471, 0.960784, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/SOLUTION"]
+visible = false
+margin_left = 1024.0
+margin_right = 1280.0
+margin_bottom = 168.0
+color = Color( 0.0745098, 0.568627, 0.8, 1 )
 
 [node name="SolutionImg" type="TextureRect" parent="UI/SOLUTION"]
-margin_left = 1042.0
-margin_top = 13.0
-margin_right = 1271.0
+margin_left = 921.0
+margin_top = 14.0
+margin_right = 1252.0
 margin_bottom = 155.0
 texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
 [node name="label" type="Label" parent="UI/SOLUTION"]
-margin_left = 912.0
-margin_top = 24.0
-margin_right = 1051.0
-margin_bottom = 168.0
+visible = false
+margin_left = 838.0
+margin_top = 27.0
+margin_right = 977.0
+margin_bottom = 171.0
 custom_colors/font_color = Color( 0.0705882, 0.141176, 0.180392, 1 )
 custom_fonts/font = SubResource( 56 )
 text = "FENG
@@ -619,21 +635,38 @@ RESULT:"
 align = 2
 
 [node name="Reset" type="TextureButton" parent="UI"]
-margin_left = 24.0
-margin_top = 17.0
-margin_right = 68.0
-margin_bottom = 61.0
+margin_left = 29.0
+margin_top = 65.0
+margin_right = 80.0
+margin_bottom = 109.0
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="currentLevel" type="Label" parent="UI"]
-margin_left = 94.0
-margin_top = 14.0
-margin_right = 233.0
-margin_bottom = 60.0
-custom_colors/font_color = Color( 0.0705882, 0.141176, 0.180392, 1 )
+margin_left = 128.0
+margin_top = 45.0
+margin_right = 374.0
+margin_bottom = 131.0
+custom_colors/font_color = Color( 0.121569, 0.2, 0.25098, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "LEVEL 1/5"
+text = "1/5"
+
+[node name="explanation" type="Label" parent="UI"]
+margin_left = 241.0
+margin_top = 18.0
+margin_right = 943.0
+margin_bottom = 158.0
+custom_colors/font_color = Color( 0.309804, 0.380392, 0.427451, 1 )
+custom_constants/line_spacing = -20
+custom_fonts/font = SubResource( 75 )
+text = "Move furniture with you mouse to find harmony.
+
+<- Restart current room with the button on the left.
+
+The desired layout is on the right.  ->"
+align = 1
+autowrap = true
 
 [node name="ROOMS" type="CanvasLayer" parent="."]
 follow_viewport_enable = true
@@ -914,7 +947,7 @@ position = Vector2( -0.5, 0 )
 shape = SubResource( 3 )
 
 [node name="Wadrobe" parent="ROOMS/ROOM_2/RealRoom/Furniture" instance=ExtResource( 2 )]
-position = Vector2( 149, 66 )
+position = Vector2( 150, 58 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -922,13 +955,13 @@ IdealObject = NodePath("../../../FinalRoom/Furniture/Wadrobe2")
 
 [node name="TextureRect" parent="ROOMS/ROOM_2/RealRoom/Furniture/Wadrobe" index="0"]
 margin_left = -154.0
-margin_top = -68.0
+margin_top = -59.0
 margin_right = 153.0
-margin_bottom = 80.0
+margin_bottom = 75.0
 texture = ExtResource( 17 )
 
 [node name="CollisionShape2D" parent="ROOMS/ROOM_2/RealRoom/Furniture/Wadrobe" index="1"]
-position = Vector2( 0, 0.5 )
+position = Vector2( 0, 1 )
 shape = SubResource( 61 )
 
 [node name="Chair" parent="ROOMS/ROOM_2/RealRoom/Furniture" instance=ExtResource( 2 )]
@@ -957,7 +990,7 @@ margin_bottom = 43.0
 texture = ExtResource( 19 )
 
 [node name="CollisionShape2D" parent="ROOMS/ROOM_2/RealRoom/Furniture/RoundTable" index="1"]
-shape = SubResource( 62 )
+shape = SubResource( 74 )
 
 [node name="FinalRoom" type="ColorRect" parent="ROOMS/ROOM_2"]
 margin_left = 137.0
@@ -1340,7 +1373,7 @@ margin_bottom = 43.0
 texture = ExtResource( 27 )
 
 [node name="CollisionShape2D" parent="ROOMS/ROOM_5/RealRoom/Furniture/RoundTable" index="1"]
-shape = SubResource( 62 )
+shape = SubResource( 74 )
 
 [node name="Piano" parent="ROOMS/ROOM_5/RealRoom/Furniture" instance=ExtResource( 2 )]
 position = Vector2( 799, 144 )
@@ -1429,7 +1462,7 @@ margin_bottom = 43.0
 texture = ExtResource( 19 )
 
 [node name="CollisionShape2D" parent="ROOMS/ROOM_5/FinalRoom/Furniture/RoundTable2" index="1"]
-shape = SubResource( 62 )
+shape = SubResource( 74 )
 
 [node name="Piano2" parent="ROOMS/ROOM_5/FinalRoom/Furniture" instance=ExtResource( 2 )]
 position = Vector2( 99, 204 )
@@ -1467,21 +1500,25 @@ scale = Vector2( 4.42, 4 )
 [node name="Window3" parent="Walls" instance=ExtResource( 3 )]
 position = Vector2( 540, 2431.43 )
 rotation = -1.5708
-scale = Vector2( 3.53, 4 )
+scale = Vector2( 3.55, 4 )
 
 [node name="Window6" parent="Walls" instance=ExtResource( 3 )]
 position = Vector2( 3940, 2434.29 )
 rotation = 1.5708
-scale = Vector2( 3.53, 4 )
+scale = Vector2( 3.55, 4 )
 
 [node name="Window4" parent="Walls" instance=ExtResource( 3 )]
-position = Vector2( 1148.57, 4197.14 )
+position = Vector2( 1148.57, 4196 )
 rotation = 3.14159
 scale = Vector2( 5.33, 4 )
 BREAKABLE = true
 
+[node name="CPUParticles2D" parent="Walls/Window4" index="4"]
+position = Vector2( 0, 0.00012207 )
+direction = Vector2( 0, 1 )
+
 [node name="Window5" parent="Walls" instance=ExtResource( 3 )]
-position = Vector2( 2685.71, 4194.29 )
+position = Vector2( 2685.71, 4196 )
 rotation = 3.14159
 scale = Vector2( 5.3, 4 )
 BREAKABLE = true
@@ -1559,3 +1596,4 @@ color_ramp = SubResource( 59 )
 [editable path="ROOMS/ROOM_5/FinalRoom/Furniture/PianoChair2"]
 [editable path="ROOMS/ROOM_5/FinalRoom/Furniture/RoundTable2"]
 [editable path="ROOMS/ROOM_5/FinalRoom/Furniture/Piano2"]
+[editable path="Walls/Window4"]

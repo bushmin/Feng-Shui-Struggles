@@ -12,3 +12,5 @@ script = ExtResource( 1 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 3 )
+
+[node name="scratch" type="AudioStreamPlayer" parent="SFX"]

@@ -34,13 +34,14 @@ func _physics_process(delta):
 	
 
 func move_by(mouseDelta, timeDelta, cycle = 0):
-	if cycle > 5 or is_zero_approx(mouseDelta.length()): return
+	if cycle > 7 or is_zero_approx(mouseDelta.length()): return
 	var deltaTransform = get_block_transform(holdPosition, mouseDelta)
 	if not test_move(Transform2D(global_rotation +deltaTransform.deltaAngle, global_position), deltaTransform.deltaPos):
 		rotation += deltaTransform.deltaAngle
 		move_and_slide(deltaTransform.deltaPos / timeDelta)
 	else:
-		#holdPosition += deltaTransform.deltaPos/2
+		MusicManager.SFX.start_scratch()
+		
 		holdPosition = to_local((CAMERA_POS+prevMousePos))
 		move_by(mouseDelta/2, timeDelta, cycle+1)
 
@@ -48,7 +49,7 @@ func new_camera_position(pos):
 	CAMERA_POS = pos
 
 func set_correct(isCorrect):
-	if isCorrect: modulate = Color("a3a3a3")
+	if isCorrect: modulate = Color("ffffff") #a3a3a3
 	else: modulate = Color("ffffff")
 
 func _on_input_event(viewport, event, shape_idx):
